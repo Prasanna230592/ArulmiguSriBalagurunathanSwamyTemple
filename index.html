@@ -1075,7 +1075,6 @@
     <script type="text/javascript">
         $(document).ready(function(){
 debugger;
-        function Display() {
             var xhr = new XMLHttpRequest();
             xhr.open("GET", "/ExcelFiles/Sample.xlsx", true);
             xhr.responseType = "blob";
@@ -1102,7 +1101,7 @@ debugger;
                 }
             };
             xhr.send();
-        };
+
         function ProcessExcel(data) {
             //Read the Excel File data.
             var workbook = XLSX.read(data, {
@@ -1127,9 +1126,9 @@ debugger;
         };
 })
     </script>
-    </script>
     </body>
 </html>
+
 
 
 
