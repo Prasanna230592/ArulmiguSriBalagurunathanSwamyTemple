@@ -1118,13 +1118,14 @@ debugger;
             }
 
             var dvExcel = document.getElementsByClassName("blog-carousel");
-            $(".blog-carousel").html(dvExcel.innerHTML+row);
+            $(".blog-carousel").html(dvExcel[0].innerHTML+row);
             $('.blog-carousel').carousel();
         };
 })
     </script>
     </body>
 </html>
+
 
 
 
