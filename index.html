@@ -491,47 +491,7 @@
                     <h3 class="display-2 mb-0 wow fadeInUp" data-wow-delay="0.3s">வரவிருக்கும் நிகழ்வுகள்</h3>
                 </div>
                 <div class="blog-carousel owl-carousel pt-5 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="blog-item bg-white rounded wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="blog-img rounded-top">
-                            <!--<img src="Vinayagar.jfif" class="img-fluid rounded-top w-100" alt="Image">-->
-                        </div>
-                        <div class="bg-light rounded-bottom p-4">
-                            <div class="d-flex justify-content-between mb-4">
-                                <a href="#" class="text-muted"><i class="fa fa-calendar-alt text-primary"></i> 27 August 2025</a>
-                                <a href="#" class="text-muted"><span class="fa fa-comments text-primary"></span> 3 Comments</a>
-                            </div>
-                            <a href="#" class="h4 mb-3 d-block">விநாயகர் சதுர்த்தி</a>
-                            <p class="mb-3">நம் கோவிலில் விநாயகர் சதுர்த்தி பூஜை காலை 8 மணி முதல் நடைபெரும். அனைவரும் கலந்து கொண்டு சிறப்பிக்க வேண்டும்</p>
-                            <a class="btn btn-primary rounded-pill text-white py-2 px-4" href="#">தொடர்க</a>
-                        </div>
-                    </div>
-                    <div class="blog-item bg-white rounded wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="blog-img rounded-top">
-                            <!--<img src="pradhosam.gif" class="img-fluid rounded-top w-100" alt="Image">-->
-                        </div>
-                        <div class="bg-light rounded-bottom p-4">
-                            <div class="d-flex justify-content-between mb-4">
-                                <a href="#" class="text-muted"><i class="fa fa-calendar-alt text-primary"></i> 05 September 2025</a>
-                                <a href="#" class="text-muted"><span class="fa fa-comments text-primary"></span> 3 Comments</a>
-                            </div>
-                            <a href="#" class="h4 mb-3 d-block">பிரதோஷம்</a>
-                            <p class="mb-3">நம் கோவிலில் பிரதோஷ பூஜை வழிபாடு மாலை 4 மணி முதல் நடைபெரும். அனைவரும் கலந்து கொண்டு சிறப்பிக்க வேண்டும்</p>
-                            <a class="btn btn-primary rounded-pill text-white py-2 px-4" href="#">தொடர்க</a>
-                        </div>
-                    </div>
-                    <div class="blog-item bg-white rounded wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="blog-img rounded-top">
-                            <!--<img src="pournami.jfif" class="img-fluid rounded-top w-100" alt="Image">-->
-                        </div>
-                        <div class="bg-light rounded-bottom p-4">
-                            <div class="d-flex justify-content-between mb-4">
-                                <a href="#" class="text-muted"><i class="fa fa-calendar-alt text-primary"></i> 07 September 2025</a>
-                                <a href="#" class="text-muted"><span class="fa fa-comments text-primary"></span> 3 Comments</a>
-                            </div>
-                            <a href="#" class="h4 mb-3 d-block">பௌர்ணமி</a>
-                            <p class="mb-3">நம் கோவிலில் பௌர்ணமி பூஜை வழிபாடு மாலை 4 மணி முதல் நடைபெரும். அனைவரும் கலந்து கொண்டு சிறப்பிக்க வேண்டும்</p>
-                            <a class="btn btn-primary rounded-pill text-white py-2 px-4" href="#">தொடர்க</a>
-                        </div>
+                    
                     </div>
                 </div>
             </div>
@@ -1110,8 +1070,63 @@
     <script src="lib/lightbox/js/lightbox.min.js"></script>
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/xlsx.full.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/jszip.js"></script>
+    <script type="text/javascript">
+        function Display() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "/ExcelFiles/Sample.xlsx", true);
+            xhr.responseType = "blob";
+            xhr.onload = function (e) {
+                var file = this.response;
+                var reader = new FileReader();
+                //For Browsers other than IE.
+                if (reader.readAsBinaryString) {
+                    reader.onload = function (e) {
+                        ProcessExcel(e.target.result);
+                    };
+                    reader.readAsBinaryString(file);
+                } else {
+                    //For IE Browser.
+                    reader.onload = function (e) {
+                        var data = "";
+                        var bytes = new Uint8Array(e.target.result);
+                        for (var i = 0; i < bytes.byteLength; i++) {
+                            data += String.fromCharCode(bytes[i]);
+                        }
+                        ProcessExcel(data);
+                    };
+                    reader.readAsArrayBuffer(file);
+                }
+            };
+            xhr.send();
+        };
+        function ProcessExcel(data) {
+            //Read the Excel File data.
+            var workbook = XLSX.read(data, {
+                type: 'binary'
+            });
+
+            //Fetch the name of First Sheet.
+            var firstSheet = workbook.SheetNames[0];
+
+            //Read all rows from First Sheet into an JSON array.
+            var excelRows = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[firstSheet]);
+
+             for (var i = 0; i < excelRows.length; i++) {
+                //Add the data row.
+                var row = "<div class='blog-item bg-white rounded wow fadeInUp' data-wow-delay='0.1s'><div class='blog-img rounded-top'></div><div class='bg-light rounded-bottom p-4'><div class='d-flex justify-content-between mb-4'><a href='#' class='text-muted'><i class='fa fa-calendar-alt text-primary'></i>"+excelRows[i].Date+"</a><a href='#' class='text-muted'><span class='fa fa-comments text-primary'></span> 3 Comments</a></div><a href='#' class='h4 mb-3 d-block'>"+excelRows[i].Event+"</a><p class='mb-3'>"+excelRows[i].Description+"</p><a class='btn btn-primary rounded-pill text-white py-2 px-4' href='#'>தொடர்க</a></div>"
+
+            }
+
+            var dvExcel = document.getElementById("blog-carousel");
+            dvExcel.innerHTML = "";
+            dvExcel.innerHTML(row);
+        };
+    </script>
     </body>
 </html>
+
 
 
 
