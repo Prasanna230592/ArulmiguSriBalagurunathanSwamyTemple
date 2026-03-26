@@ -182,7 +182,7 @@
                 <div class="bg-light rounded p-4 pb-0">
                     <div class="row g-5 align-items-center">
                         <div class="col-lg-6 wow fadeInLeft" data-wow-delay="0.1s">
-                            <h3 class="display-5 mb-2">புதிய நிகழ்வுகளைச் சேர்க்க</h3>
+                            <h5 class="display-5 mb-2">புதிய நிகழ்வுகளைச் சேர்க்க</h5>
                             <form>
                                 <div class="row g-3">
                                     <div class="col-lg-12 col-xl-6">
@@ -268,6 +268,32 @@
         
   });
         </script>
+        
+<script srce.jquery.com/jquery-3.6.0.min.js</script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.19.ull.min.js</script>
+
+let excelData = [
+  ["Date", "Event", "Description"] // header row
+];
+
+$("#addevent").click(function () {
+    let date = $("#date").val();
+    let event = $('#event option:selected').text();
+    let desc = $("#description").val();
+        excelData.push([date, event, desc]);
+    
+let worksheet = XLSX.utils.aoa_to_sheet(excelData);
+    let workbook = XLSX.utils.book_new();
+
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+    XLSX.writeFile(workbook, "/UploadFiles/Events.xlsx");
+
+        $("#date").val("");
+        $("#event").val("");
+        $("#description").val("");
+    }
+});
+
     </body>
 
 
