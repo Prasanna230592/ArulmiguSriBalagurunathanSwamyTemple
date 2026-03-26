@@ -263,8 +263,9 @@
         <script type="text/javascript">
         $("#event").change(function() {
         var selectedValue = $(this).val();
-             $("#description").text("");
-        $("#description").text(selectedValue);
+             $("#description").val("");
+            $("#description").val(selectedValue); 
+        
   });
         </script>
     </body>
