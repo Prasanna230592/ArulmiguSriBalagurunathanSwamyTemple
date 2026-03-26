@@ -195,13 +195,13 @@
                                         <div class="form-floating">
                                             <select name="event" id="event" class="form-control">
                                                   <option disabled="" selected="">Please pick one</option>
-                                                  <option>பிரதோஷம்</option>
-                                                  <option>பௌர்ணமி</option>
-                                                  <option>அமாவாசை</option>
-                                                  <option>விநாயகர் சதுர்த்தி</option>
-                                                  <option>ஆடிப் பெருக்கு</option>
-                                                <option>பொங்கல்</option>
-                                                <option>தீபாவளி</option>
+                                                  <option value="நம் கோவிலில் பிரதோஷ பூஜை வழிபாடு மாலை 4 மணி முதல் நடைபெரும். அனைவரும் கலந்து கொண்டு சிறப்பிக்க வேண்டும்">பிரதோஷம்</option>
+                                                  <option value="நம் கோவிலில் பௌர்ணமி பூஜை வழிபாடு மாலை 4 மணி முதல் நடைபெரும். அனைவரும் கலந்து கொண்டு சிறப்பிக்க வேண்டும்">பௌர்ணமி</option>
+                                                  <option value="நம் கோவிலில் அமாவாசை பூஜை வழிபாடு மாலை 4 மணி முதல் நடைபெரும். அனைவரும் கலந்து கொண்டு சிறப்பிக்க வேண்டும்">அமாவாசை</option>
+                                                  <option value="நம் கோவிலில் விநாயகர் சதுர்த்தி பூஜை வழிபாடு மாலை 4 மணி முதல் நடைபெரும். அனைவரும் கலந்து கொண்டு சிறப்பிக்க வேண்டும்">விநாயகர் சதுர்த்தி</option>
+                                                  <option value="நம் கோவிலில் ஆடி 18 பூஜை வழிபாடு மாலை 4 மணி முதல் நடைபெரும். அனைவரும் கலந்து கொண்டு சிறப்பிக்க வேண்டும்">ஆடிப் பெருக்கு</option>
+                                                <option value="நம் கோவிலில் பொங்கல் பூஜை வழிபாடு மாலை 4 மணி முதல் நடைபெரும். அனைவரும் கலந்து கொண்டு சிறப்பிக்க வேண்டும்">பொங்கல்</option>
+                                                <option value="நம் கோவிலில் தீபாவளி பூஜை வழிபாடு மாலை 4 மணி முதல் நடைபெரும். அனைவரும் கலந்து கொண்டு சிறப்பிக்க வேண்டும்">தீபாவளி</option>
                                             </select>
                                             <label for="Event">Event</label>
                                         </div>
@@ -260,6 +260,9 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+        $('#event').change(function() {
+    var selectedValue = $(this).val();
+  });$('#description').text(selectedValue);
     </body>
 
 
